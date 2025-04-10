@@ -1,7 +1,7 @@
-package com.example.capD.domain;
+package com.example.capd.domain;
 
 
-import com.example.capD.domain.enums.memberStatus;
+import com.example.capd.domain.enums.memberStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

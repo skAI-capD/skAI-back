@@ -1,6 +1,6 @@
-package com.example.capD.domain;
+package com.example.capd.domain;
 
-import com.example.capD.domain.enums.Status;
+import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +25,8 @@ public class Word {
   private String imageUrl;
   private String shortContent;
   private String level;
+  private String hint;
+  private String wordClass;
   private String correctDate;
 
   @Enumerated(EnumType.STRING)

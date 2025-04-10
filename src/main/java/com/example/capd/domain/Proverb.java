@@ -1,6 +1,6 @@
-package com.example.capD.domain;
+package com.example.capd.domain;
 
-import com.example.capD.domain.enums.Status;
+import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class Proverb {
 
   private String correct;
   private String content;
-  private String image;
+  private String imageUrl;
   private String shortContent;
   private String type;
   private String correctDate;
@@ -64,11 +64,11 @@ public class Proverb {
 
 
   public String getImage() {
-    return image;
+    return imageUrl;
   }
 
   public void setImage(String image) {
-    this.image = image;
+    this.imageUrl = image;
   }
 
 

@@ -1,5 +1,4 @@
-package com.example.capD.domain;
-
+package com.example.capd.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberSentence {
+public class MemberDictation {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,17 +19,9 @@ public class MemberSentence {
   private Member member;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "sentence_id")
-  private Sentence sentence;
+  @JoinColumn(name = "dictation_id")
+  private Dictation dictation;
 
-
-  public long getMemberSentencePk() {
-    return id;
-  }
-
-  public void setMemberSentencePk(long id) {
-    this.id = id;
-  }
 
 
 }

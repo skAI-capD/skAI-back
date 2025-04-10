@@ -1,4 +1,4 @@
-package com.example.capD.domain;
+package com.example.capd.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
