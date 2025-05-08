@@ -1,5 +1,6 @@
 package com.example.capd.domain;
 
+import com.example.capd.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
