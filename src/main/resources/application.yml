@@ -16,6 +16,26 @@ spring:
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 1000
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: wlsaudwo295@naver.com
+    password: 1XQFUQQZC87C
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+    default-encoding: UTF-8
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    enabled: true
+    cache: false
 logging:
   level:
     org.hibernate.SQL: debug
@@ -27,3 +47,4 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+
