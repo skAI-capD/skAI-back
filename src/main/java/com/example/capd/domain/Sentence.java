@@ -24,6 +24,10 @@ public class Sentence {
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;
+  private String content;
+  private int order;
+  @Column(name = "sentence_id")
+  private int sentenceId;
 
   @OneToMany(mappedBy = "sentence", cascade = CascadeType.ALL)
   private List<MemberSentence> memberSentences = new ArrayList<>();

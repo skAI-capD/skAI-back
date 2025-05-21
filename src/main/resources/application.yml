@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://cap-d-database-1.cdo0oqq22gat.ap-northeast-2.rds.amazonaws.com:3306/Skai
     username: root
-    password: Goingmeliho012!
+    password: ekdns101!
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -48,3 +48,5 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
 
+jwt:
+  secret: 3HWV5sImXfmz3fQoimW41JHGiJHuoGvLn9HIyit33Ow=
