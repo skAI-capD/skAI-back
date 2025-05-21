@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Word {
@@ -17,9 +18,7 @@ public class Word {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-
-  private String words;
-  private String mean;
+  private String word;
   private String content;
   private String imageUrl;
   private String shortContent;
@@ -44,24 +43,24 @@ public class Word {
     this.id = id;
   }
 
-
   public String getWords() {
-    return words;
+    return word;
   }
 
   public void setWords(String words) {
-    this.words = words;
+    this.word = words;
   }
 
-
-  public String getMean() {
-    return mean;
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+  public Status getStatus() {
+    return status;
   }
 
-  public void setMean(String mean) {
-    this.mean = mean;
+  public void setCorrectDate(String date) {
+    this.correctDate = date;
   }
-
 
   public String getContent() {
     return content;
@@ -103,9 +102,6 @@ public class Word {
     return correctDate;
   }
 
-  public void setCorrectDate(String correctDate) {
-    this.correctDate = correctDate;
-  }
 
 
 

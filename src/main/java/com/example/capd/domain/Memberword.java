@@ -22,6 +22,8 @@ public class Memberword {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "word_id")
   private Word word;
+  private boolean isCorrect;
+  private String correctDate;
 
 
   public long getMemberwordPk() {
