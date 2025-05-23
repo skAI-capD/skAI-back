@@ -19,8 +19,14 @@ public class Proverb {
   private long id;
 
   private String correct;
+
+  @Column(nullable = true)
   private String content;
+
+  @Column(nullable = true , name = "image_url")
   private String imageUrl;
+
+  @Column(nullable = true)
   private String shortContent;
   private String type;
   private String correctDate;
