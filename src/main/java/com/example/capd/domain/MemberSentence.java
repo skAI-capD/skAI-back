@@ -5,6 +5,8 @@ import com.example.capd.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
@@ -24,6 +26,9 @@ public class MemberSentence {
   @JoinColumn(name = "sentence_id")
   private Sentence sentence;
 
+  private boolean isCorrect;
+
+  private LocalDateTime correctDate;
 
   public long getMemberSentencePk() {
     return id;
@@ -33,5 +38,11 @@ public class MemberSentence {
     this.id = id;
   }
 
+  public void setCorrect(boolean correct) {
+    this.isCorrect = correct;
+  }
 
+  public void setCorrectDate(LocalDateTime correctDate) {
+    this.correctDate = correctDate;
+  }
 }
