@@ -9,7 +9,7 @@ public class SentenceConverter {
         return SentenceResponseDto.builder()
                 .id(sentence.getSentencePk())
                 .content(sentence.getContent())
-                .order(sentence.getOrder())
+                .order(sentence.getOrders())
                 .build();
     }
 
