@@ -13,4 +13,6 @@ public class DiaryRequestDto {
     private boolean useCustom;
     private String hairstyle;
     private String outfit;
+    private String diaryImagePath; // 이미지 경로
 }
+
