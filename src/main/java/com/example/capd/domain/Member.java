@@ -34,6 +34,8 @@ public class Member {
   @Column(nullable = true)
   private LocalDateTime createdAt;
   private String password;
+
+  private String gender;
   @Column(nullable = true)
   private long correct;
   @Enumerated(EnumType.STRING)
@@ -71,6 +73,14 @@ public class Member {
 
   public void setMemberId(long id) {
     this.id = id;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public String getGender() {
+    return gender;
   }
 
 
