@@ -2,6 +2,7 @@ package com.example.capd.fastAPI.controller;
 
 
 
+import com.example.capd.domain.Member;
 import com.example.capd.fastAPI.domain.DiaryRequestDto;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
 
@@ -19,8 +20,9 @@ public class FastApiController {
     private final FastApiService fastApiService;
 
     @PostMapping("/generate")
-    public DiaryResponseDto generateDiary(@RequestBody DiaryRequestDto dto ,
-                                          @AuthenticationPrincipal UserDetails userDetails) {
+    public DiaryResponseDto generateDiary(@RequestBody DiaryRequestDto dto,
+                                          @AuthenticationPrincipal Member member) {
         return fastApiService.requestDiaryFromFastApi(dto);
     }
+
 }

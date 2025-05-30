@@ -10,5 +10,5 @@ public class ProfileUpdateRequestDto {
     private String kidsname;
     private String  birthday;
     private String gender;
-    private String image; // ex: "bear.png"
+    private String image;
 }

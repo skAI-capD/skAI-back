@@ -2,6 +2,7 @@ package com.example.capd.joinMember.service;
 
 import com.example.capd.domain.Member;
 import com.example.capd.joinMember.repository.JoinRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Getter
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private final JoinRepository joinRepository;
