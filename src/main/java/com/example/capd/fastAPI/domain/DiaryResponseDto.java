@@ -10,4 +10,5 @@ public class DiaryResponseDto {
     private String characterPrompt;
     private String prompt;
     private String imageUrl;
+    private String fixedText;
 }
