@@ -1,4 +1,3 @@
-// FastApiController.java
 package com.example.capd.fastAPI.controller;
 
 import com.example.capd.domain.Member;
