@@ -48,5 +48,15 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
 
+cloud:
+  aws:
+    credentials:
+      access-key: YOUR_ACCESS_KEY
+      secret-key: YOUR_SECRET_KEY
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: your-bucket-name
+
 jwt:
   secret: 3HWV5sImXfmz3fQoimW41JHGiJHuoGvLn9HIyit33Ow=

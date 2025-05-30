@@ -21,8 +21,11 @@ public class Diary {
 
   private String content;
   private String imageUrl;
+  private String capturedImageUrl;
   private String date;
   private String fixedContent;
+  private String color;
+  private String style;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
@@ -30,6 +33,10 @@ public class Diary {
 
   @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
   private List<MemberDiary> memberDiaries = new ArrayList<>();
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "member_id") // FK 컬럼 이름
+  private Member member;
 
   public long getDiaryPk() {
     return id;
