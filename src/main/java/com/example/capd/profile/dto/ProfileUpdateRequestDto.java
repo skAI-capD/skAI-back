@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class ProfileUpdateRequestDto {
     private String kidsname;
     private String  birthday;
+    private String nickname;
     private String gender;
     private String image;
 }
