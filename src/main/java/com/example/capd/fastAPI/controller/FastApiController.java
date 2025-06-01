@@ -5,6 +5,7 @@ import com.example.capd.fastAPI.domain.DiaryResponseDto;
 import com.example.capd.fastAPI.service.FastApiService;
 import com.example.capd.joinMember.repository.JoinRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +19,16 @@ public class FastApiController {
     private final FastApiService fastApiService;
     private final JoinRepository joinRepository;
 
-    @PostMapping("/generate")
-    public DiaryResponseDto generateDiary(@RequestParam("diaryImage") MultipartFile diaryImage,
-                                          @RequestParam("diaryText") String diaryText,
-                                          @RequestParam("style") String style,
-                                          @RequestParam("color") String color,
-                                          @RequestParam("useCustom") boolean useCustom,
-                                          @RequestParam(value = "hairstyle", required = false) String hairstyle,
-                                          @RequestParam(value = "outfit", required = false) String outfit,
-                                          @AuthenticationPrincipal UserDetails userDetails) throws Exception {
+    @PostMapping(value = "/generate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public DiaryResponseDto generateDiary(
+            @RequestPart("diaryImage") MultipartFile diaryImage,
+            @RequestPart("diaryText") String diaryText,
+            @RequestPart("style") String style,
+            @RequestPart("color") String color,
+            @RequestPart("useCustom") boolean useCustom,
+            @RequestPart(value = "hairstyle", required = false) String hairstyle,
+            @RequestPart(value = "outfit", required = false) String outfit,
+            @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 
         if (userDetails == null) {
             throw new IllegalArgumentException("인증 정보 없음");
