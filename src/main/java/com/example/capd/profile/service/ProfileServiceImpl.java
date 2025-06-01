@@ -16,7 +16,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Transactional
     public void updateProfile(Member member, ProfileUpdateRequestDto dto) {
-        member.setKidsname(dto.getKidsname());
+        member.setNickname(dto.getNickname());
         member.setBirthday(dto.getBirthday());
         member.setGender(dto.getGender());
         member.setImage(dto.getImage());
