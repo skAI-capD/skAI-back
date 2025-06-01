@@ -21,12 +21,12 @@ public class FastApiController {
 
     @PostMapping(value = "/generate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DiaryResponseDto generateDiary(
-            @RequestPart("diaryImage") MultipartFile diaryImage,
-            @RequestPart("style") String style,
-            @RequestPart("color") String color,
-            @RequestPart("useCustom") boolean useCustom,
-            @RequestPart(value = "hairstyle", required = false) String hairstyle,
-            @RequestPart(value = "outfit", required = false) String outfit,
+            @RequestParam("diaryImage") MultipartFile diaryImage,
+            @RequestParam("style") String style,
+            @RequestParam("color") String color,
+            @RequestParam("useCustom") boolean useCustom,
+            @RequestParam(value = "hairstyle", required = false) String hairstyle,
+            @RequestParam(value = "outfit", required = false) String outfit,
             @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 
         if (userDetails == null) {
@@ -39,4 +39,5 @@ public class FastApiController {
 
         return fastApiService.handleDiaryGeneration(member, diaryImage, null, style, color, useCustom, hairstyle, outfit);
     }
+
 }
