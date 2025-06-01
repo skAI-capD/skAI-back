@@ -22,7 +22,6 @@ public class FastApiController {
     @PostMapping(value = "/generate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DiaryResponseDto generateDiary(
             @RequestPart("diaryImage") MultipartFile diaryImage,
-            @RequestPart("diaryText") String diaryText,
             @RequestPart("style") String style,
             @RequestPart("color") String color,
             @RequestPart("useCustom") boolean useCustom,
@@ -38,6 +37,6 @@ public class FastApiController {
         Member member = joinRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        return fastApiService.handleDiaryGeneration(member, diaryImage, diaryText, style, color, useCustom, hairstyle, outfit);
+        return fastApiService.handleDiaryGeneration(member, diaryImage, null, style, color, useCustom, hairstyle, outfit);
     }
 }
