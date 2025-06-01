@@ -15,6 +15,7 @@ public class ProfileResponseDto {
     private Long id;
     private String birthday;
     private String kidsname;
+    private String nickname;
     private String email;
     private String image;
     private LocalDateTime createdAt;
