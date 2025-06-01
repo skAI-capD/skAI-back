@@ -5,6 +5,7 @@ import com.example.capd.profile.converter.ProfileConverter;
 import com.example.capd.profile.dto.ProfileResponseDto;
 import com.example.capd.profile.dto.ProfileUpdateRequestDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -13,6 +14,7 @@ public class ProfileServiceImpl implements ProfileService {
         return ProfileConverter.toDto(member);
     }
 
+    @Transactional
     public void updateProfile(Member member, ProfileUpdateRequestDto dto) {
         member.setKidsname(dto.getKidsname());
         member.setBirthday(dto.getBirthday());
