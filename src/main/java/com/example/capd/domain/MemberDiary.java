@@ -5,6 +5,8 @@ import com.example.capd.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
@@ -24,6 +26,9 @@ public class MemberDiary {
   @JoinColumn(name = "member_id")
   private Member member;
 
+  private boolean isCorrect;
+
+  private LocalDateTime correctDate;
 
   public long getDiarydictationPk() {
     return id;

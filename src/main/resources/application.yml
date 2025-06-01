@@ -1,10 +1,12 @@
 spring:
+  config:
+    import: "optional:env[.env]"
   application:
     name: cap-D
   datasource:
     url: jdbc:mysql://cap-d-database-1.cdo0oqq22gat.ap-northeast-2.rds.amazonaws.com:3306/Skai
     username: root
-    password: ekdns101!
+    password: ${spring_SECRET_KEY}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -20,7 +22,7 @@ spring:
     host: smtp.naver.com
     port: 465
     username: wlsaudwo295@naver.com
-    password: 1XQFUQQZC87C
+    password: ${mail_SECRET_KEY}
     protocol: smtp
     properties:
       mail:
@@ -48,5 +50,15 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
 
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: your-bucket-name
+
 jwt:
-  secret: 3HWV5sImXfmz3fQoimW41JHGiJHuoGvLn9HIyit33Ow=
+  secret: ${jwt_SECRET_KEY}

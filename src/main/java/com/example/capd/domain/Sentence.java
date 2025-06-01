@@ -25,7 +25,7 @@ public class Sentence {
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;
   private String content;
-  private int order;
+  private int orders;
   @Column(name = "sentence_id")
   private int sentenceId;
 
