@@ -4,6 +4,7 @@ import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Proverb {
   @Column(nullable = true)
   private String shortContent;
   private String type;
-  private String correctDate;
+  private LocalDateTime correctDate;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
@@ -96,11 +97,11 @@ public class Proverb {
   }
 
 
-  public String getCorrectDate() {
+  public LocalDateTime getCorrectDate() {
     return correctDate;
   }
 
-  public void setCorrectDate(String correctDate) {
+  public void setCorrectDate(LocalDateTime correctDate) {
     this.correctDate = correctDate;
   }
 

@@ -5,6 +5,8 @@ import com.example.capd.SentenceCorrect.dto.SentenceResponseDto;
 import com.example.capd.domain.Proverb;
 import com.example.capd.domain.Sentence;
 
+import java.time.LocalDateTime;
+
 public class ProverbConverter {
 
     public static ProverbResponseDTO toDto(Proverb proverb) {

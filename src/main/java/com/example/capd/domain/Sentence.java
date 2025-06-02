@@ -4,6 +4,8 @@ import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Sentence {
   private long id;
 
   private String level;
-  private String correctDate;
+  private LocalDateTime correctDate;
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;
@@ -50,11 +52,11 @@ public class Sentence {
   }
 
 
-  public String getCorrectDate() {
+  public LocalDateTime getCorrectDate() {
     return correctDate;
   }
 
-  public void setCorrectDate(String correctDate) {
+  public void setCorrectDate(LocalDateTime correctDate) {
     this.correctDate = correctDate;
   }
 

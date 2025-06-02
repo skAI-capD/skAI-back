@@ -4,6 +4,7 @@ import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Dictation {
   private String soundsUrl;
   private String content;
   private String level;
+  private LocalDateTime correctDate;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")

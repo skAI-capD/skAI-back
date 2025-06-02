@@ -3,6 +3,8 @@ package com.example.capd.WordCorrect.dto;
 import com.example.capd.domain.enums.Status;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -18,5 +20,5 @@ public class WordResponseDTO {
     private String hint;
     private String wordClass;
     private String status;
-    private String correctDate;
+    private LocalDateTime correctDate;
 }

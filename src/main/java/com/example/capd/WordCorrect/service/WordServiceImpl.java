@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,7 @@ public class WordServiceImpl implements WordService {
                 .hint(word.getHint())
                 .wordClass(word.getWordClass())
                 .status(word.getStatus() != null ? word.getStatus().toString() : null)
-                .correctDate(word.getCorrectDate())
+                .correctDate(LocalDateTime.now())
                 .build();
     }
 
