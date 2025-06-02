@@ -3,7 +3,10 @@ package com.example.capd.domain;
 import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class Diary {
   private String content;
   private String imageUrl;
   private String capturedImageUrl;
-  private String date;
+  private LocalDateTime date;
   private String fixedContent;
   private String color;
   private String style;
@@ -65,11 +68,11 @@ public class Diary {
   }
 
 
-  public String getDate() {
+  public LocalDateTime getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDateTime date) {
     this.date = date;
   }
 

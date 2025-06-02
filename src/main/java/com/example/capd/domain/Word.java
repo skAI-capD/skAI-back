@@ -4,6 +4,7 @@ import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Word {
   private String level;
   private String hint;
   private String wordClass;
-  private String correctDate;
+  private LocalDateTime correctDate;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
@@ -54,12 +55,17 @@ public class Word {
   public void setStatus(Status status) {
     this.status = status;
   }
+
+  public LocalDateTime getCorrectDate(LocalDateTime correctDate) {
+    return correctDate;
+  }
+
   public Status getStatus() {
     return status;
   }
 
-  public void setCorrectDate(String date) {
-    this.correctDate = date;
+  public void setCorrectDate(LocalDateTime correctDate) {
+    this.correctDate = correctDate;
   }
 
   public String getContent() {
@@ -98,9 +104,6 @@ public class Word {
   }
 
 
-  public String getCorrectDate() {
-    return correctDate;
-  }
 
 
 

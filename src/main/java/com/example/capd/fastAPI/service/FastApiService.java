@@ -3,6 +3,7 @@ package com.example.capd.fastAPI.service;
 import com.example.capd.config.S3Uploader;
 import com.example.capd.domain.Diary;
 import com.example.capd.domain.Member;
+import com.example.capd.domain.enums.Status;
 import com.example.capd.fastAPI.domain.DiaryRequestDto;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
 import com.example.capd.fastAPI.repository.DiaryRepository;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -76,7 +78,10 @@ public class FastApiService {
                 .member(member)
                 .content(diaryText)
                 .fixedContent(responseDto.getCorrectedText())
+                .capturedImageUrl(s3ImageUrl)
                 .imageUrl(s3ReuploadedImageUrl)
+                .date(LocalDateTime.now())
+                .status(Status.CORRECT)
                 .color(color)
                 .style(style)
                 .build();
