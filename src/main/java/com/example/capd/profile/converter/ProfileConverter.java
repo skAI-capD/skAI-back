@@ -13,6 +13,7 @@ public class ProfileConverter {
                 .birthday(member.getBirthday())
                 .email(member.getEmail())
                 .kidsname(member.getKidsname())
+                .gender(member.getGender())
                 .nickname(member.getNickname())
                 .createdAt(member.getCreatedAt())
                 .image(member.getImage())
