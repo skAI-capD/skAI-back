@@ -23,7 +23,11 @@ public class FastApiController {
     private final JoinRepository joinRepository;
 
     @GetMapping("/calendar")
-    public List<DiaryDateColorDTO> getDiaryDatesWithColor(@AuthenticationPrincipal Member member) {
+    public List<DiaryDateColorDTO> getDiaryDatesWithColor(@AuthenticationPrincipal UserDetails userDetails) {
+        String email = userDetails.getUsername();
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
         return fastApiService.getDiaryDateColors(member);
     }
 
