@@ -23,8 +23,9 @@ public class ProverbServiceImpl implements ProverbService {
     private final ProverbRepository proverbRepository;
     private final MemberProverbRepository memberProverbRepository;
 
-    public List<ProverbResponseDTO> getProverbByProverbType(String type) {
-        List<Proverb> proverbList = proverbRepository.findByType(type);
+    public List<ProverbResponseDTO> getProverbByProverbType(String type , Member member) {
+        Long memberId = member.getMemberId();
+        List<Proverb> proverbList = proverbRepository.findUnsolvedByTypeAndMemberId(type,memberId);
 
         return proverbList.stream()
                 .map(ProverbConverter::toDto)

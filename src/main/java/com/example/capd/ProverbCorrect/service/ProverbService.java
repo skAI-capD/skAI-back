@@ -9,5 +9,6 @@ import java.util.List;
 public interface ProverbService {
 
     public void saveMemberProverb(Member member, Long proverbId, boolean isCorrect);
-    public List<ProverbResponseDTO> getProverbByProverbType(String type);
-}
+    public List<ProverbResponseDTO> getProverbByProverbType(String type , Member member);
+
+    }
