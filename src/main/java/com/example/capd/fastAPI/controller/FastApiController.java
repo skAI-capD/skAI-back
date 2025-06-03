@@ -3,15 +3,19 @@ package com.example.capd.fastAPI.controller;
 import com.example.capd.domain.Member;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
 import com.example.capd.fastAPI.dto.DiaryDateColorDTO;
+import com.example.capd.fastAPI.dto.DiaryDetailDto;
 import com.example.capd.fastAPI.service.FastApiService;
 import com.example.capd.joinMember.repository.JoinRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -21,6 +25,13 @@ public class FastApiController {
 
     private final FastApiService fastApiService;
     private final JoinRepository joinRepository;
+
+    @GetMapping("/detail")
+    public DiaryDetailDto getDiaryDetailByDate(@AuthenticationPrincipal Member member,
+                                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return fastApiService.getDiaryDetailByDate(member, date.atStartOfDay());
+    }
+
 
     @GetMapping("/calendar")
     public List<DiaryDateColorDTO> getDiaryDatesWithColor(@AuthenticationPrincipal UserDetails userDetails) {
