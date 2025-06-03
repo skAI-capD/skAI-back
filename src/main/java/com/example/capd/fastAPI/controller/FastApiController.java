@@ -27,8 +27,11 @@ public class FastApiController {
     private final JoinRepository joinRepository;
 
     @GetMapping("/detail")
-    public DiaryDetailDto getDiaryDetailByDate(@AuthenticationPrincipal Member member,
+    public DiaryDetailDto getDiaryDetailByDate(@AuthenticationPrincipal UserDetails userDetails,
                                                @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        String email = userDetails.getUsername();
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
         return fastApiService.getDiaryDetailByDate(member, date.atStartOfDay());
     }
 
