@@ -10,6 +10,7 @@ public class SentenceConverter {
                 .id(sentence.getSentencePk())
                 .content(sentence.getContent())
                 .order(sentence.getOrders())
+                .level_id(sentence.getLevel_id())
                 .build();
     }
 

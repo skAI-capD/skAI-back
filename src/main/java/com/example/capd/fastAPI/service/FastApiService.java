@@ -25,6 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +89,7 @@ public class FastApiService {
                 .fixedContent(responseDto.getCorrectedText())
                 .capturedImageUrl(s3ImageUrl)
                 .imageUrl(s3ReuploadedImageUrl)
-                .date(LocalDateTime.now())
+                .date(LocalDate.now())
                 .status(Status.CORRECT)
                 .color(color)
                 .style(style)
@@ -121,7 +122,7 @@ public class FastApiService {
                 .collect(Collectors.toList());
     }
 
-    public DiaryDetailDto getDiaryDetailByDate(Member member, LocalDateTime date) {
+    public DiaryDetailDto getDiaryDetailByDate(Member member, LocalDate date) {
         Optional<MemberDiary> memberDiaryOptional = memberDiaryRepository.findByMemberAndDiaryDate(member, date);
         return memberDiaryOptional.map(md -> new DiaryDetailDto(
                 md.getDiary().getDate(),

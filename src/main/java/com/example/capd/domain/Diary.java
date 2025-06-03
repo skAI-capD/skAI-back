@@ -25,7 +25,7 @@ public class Diary {
   private String content;
   private String imageUrl;
   private String capturedImageUrl;
-  private LocalDateTime date;
+  private LocalDate date;
   private String fixedContent;
   private String color;
   private String style;
@@ -68,11 +68,11 @@ public class Diary {
   }
 
 
-  public LocalDateTime getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(LocalDateTime date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 

@@ -19,6 +19,7 @@ public class WordConverter {
                 .shortContent(word.getShortContent())
                 .level(word.getLevel())
                 .hint(word.getHint())
+                .level_id(word.getLevel_id())
                 .wordClass(word.getWordClass())
                 .status(word.getStatus() != null ? word.getStatus().toString() : null)
                 .correctDate(LocalDateTime.now())

@@ -30,6 +30,7 @@ public class Sentence {
   private int orders;
   @Column(name = "sentence_id")
   private int sentenceId;
+  private String level_id;
 
   @OneToMany(mappedBy = "sentence", cascade = CascadeType.ALL)
   private List<MemberSentence> memberSentences = new ArrayList<>();
@@ -54,6 +55,10 @@ public class Sentence {
 
   public LocalDateTime getCorrectDate() {
     return correctDate;
+  }
+
+  public String getLevel_id() {
+    return level_id;
   }
 
   public void setCorrectDate(LocalDateTime correctDate) {

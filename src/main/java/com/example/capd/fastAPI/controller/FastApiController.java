@@ -32,7 +32,7 @@ public class FastApiController {
         String email = userDetails.getUsername();
         Member member = joinRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        return fastApiService.getDiaryDetailByDate(member, date.atStartOfDay());
+        return fastApiService.getDiaryDetailByDate(member, date.atStartOfDay().toLocalDate());
     }
 
 
