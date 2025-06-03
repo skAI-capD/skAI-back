@@ -8,6 +8,7 @@ import com.example.capd.domain.MemberDiary;
 import com.example.capd.domain.enums.Status;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
 import com.example.capd.fastAPI.dto.DiaryDateColorDTO;
+import com.example.capd.fastAPI.dto.DiaryDetailDto;
 import com.example.capd.fastAPI.repository.DiaryRepository;
 import com.example.capd.fastAPI.repository.MemberDiaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -117,6 +119,17 @@ public class FastApiService {
                 .stream()
                 .map(md -> new DiaryDateColorDTO(md.getDiary().getDate(), md.getDiary().getColor()))
                 .collect(Collectors.toList());
+    }
+
+    public DiaryDetailDto getDiaryDetailByDate(Member member, LocalDateTime date) {
+        Optional<MemberDiary> memberDiaryOptional = memberDiaryRepository.findByMemberAndDiaryDate(member, date);
+        return memberDiaryOptional.map(md -> new DiaryDetailDto(
+                md.getDiary().getDate(),
+                md.getDiary().getFixedContent(),
+                md.getDiary().getImageUrl(),
+                md.getDiary().getCapturedImageUrl(),
+                md.getDiary().getColor()
+        )).orElseThrow(() -> new IllegalArgumentException("해당 날짜의 일기를 찾을 수 없습니다."));
     }
 
 
