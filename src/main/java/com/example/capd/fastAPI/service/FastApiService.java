@@ -6,7 +6,6 @@ import com.example.capd.domain.Diary;
 import com.example.capd.domain.Member;
 import com.example.capd.domain.MemberDiary;
 import com.example.capd.domain.enums.Status;
-import com.example.capd.fastAPI.domain.DiaryRequestDto;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
 import com.example.capd.fastAPI.dto.DiaryDateColorDTO;
 import com.example.capd.fastAPI.repository.DiaryRepository;
