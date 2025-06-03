@@ -26,8 +26,14 @@ public class ProverbCorrectController {
     private final JoinRepository joinRepository;
 
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<ProverbResponseDTO>> getProverbsByType(@PathVariable String type) {
-        List<ProverbResponseDTO> responses = proverbService.getProverbByProverbType(type);
+    public ResponseEntity<List<ProverbResponseDTO>> getProverbsByType(@PathVariable String type ,
+                                                                      @AuthenticationPrincipal UserDetails userDetails) {
+
+        String email = userDetails.getUsername();
+
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        List<ProverbResponseDTO> responses = proverbService.getProverbByProverbType(type,member);
         return ResponseEntity.ok(responses);
     }
 
