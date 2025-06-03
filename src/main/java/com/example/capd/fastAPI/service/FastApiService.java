@@ -111,7 +111,9 @@ public class FastApiService {
     }
 
     public List<DiaryDateColorDTO> getDiaryDateColors(Member member) {
-        return memberDiaryRepository.findByMember(member)
+        Long memberId = member.getId(); // 안전하게 ID만 꺼냄
+
+        return memberDiaryRepository.findByMemberId(memberId)
                 .stream()
                 .map(md -> new DiaryDateColorDTO(md.getDiary().getDate(), md.getDiary().getColor()))
                 .collect(Collectors.toList());

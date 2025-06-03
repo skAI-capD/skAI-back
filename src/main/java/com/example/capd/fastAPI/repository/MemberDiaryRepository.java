@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface MemberDiaryRepository extends JpaRepository<MemberDiary, Long> {
-    List<MemberDiary> findByMember(Member member);
+    List<MemberDiary> findByMemberId(Long memberId);
+
 
 }
 
