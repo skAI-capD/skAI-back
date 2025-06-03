@@ -111,11 +111,12 @@ public class FastApiService {
     }
 
     public List<DiaryDateColorDTO> getDiaryDateColors(Member member) {
-        return diaryRepository.findByMember(member)
+        return memberDiaryRepository.findByMember(member)
                 .stream()
-                .map(diary -> new DiaryDateColorDTO(diary.getDate(), diary.getColor()))
+                .map(md -> new DiaryDateColorDTO(md.getDiary().getDate(), md.getDiary().getColor()))
                 .collect(Collectors.toList());
     }
+
 
     private File convertMultipartFileToFile(MultipartFile multipartFile) {
         try {
