@@ -1,12 +1,16 @@
 package com.example.capd.fastAPI.service;
 
+
 import com.example.capd.config.S3Uploader;
 import com.example.capd.domain.Diary;
 import com.example.capd.domain.Member;
+import com.example.capd.domain.MemberDiary;
 import com.example.capd.domain.enums.Status;
 import com.example.capd.fastAPI.domain.DiaryRequestDto;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
+import com.example.capd.fastAPI.dto.DiaryDateColorDTO;
 import com.example.capd.fastAPI.repository.DiaryRepository;
+import com.example.capd.fastAPI.repository.MemberDiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -22,6 +26,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +36,7 @@ public class FastApiService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final S3Uploader s3Uploader;
     private final DiaryRepository diaryRepository;
+    private final MemberDiaryRepository memberDiaryRepository;
 
     public DiaryResponseDto handleDiaryGeneration(Member member, MultipartFile diaryImage,
                                                   String diaryText, String style, String color,
@@ -87,9 +94,28 @@ public class FastApiService {
                 .build();
         diaryRepository.save(diary);
 
+        // 4-1. MemberDiary에도 저장
+        MemberDiary memberDiary = MemberDiary.builder()
+                .member(member)
+                .diary(diary)
+                .isCorrect(true)
+                .correctDate(LocalDateTime.now())
+                .build();
+        memberDiaryRepository.save(memberDiary);
+
+        // 5. 최종 응답
+        responseDto.setImageUrl(s3ReuploadedImageUrl);
+
         // 5. 최종 응답
         responseDto.setImageUrl(s3ReuploadedImageUrl);
         return responseDto;
+    }
+
+    public List<DiaryDateColorDTO> getDiaryDateColors(Member member) {
+        return diaryRepository.findByMember(member)
+                .stream()
+                .map(diary -> new DiaryDateColorDTO(diary.getDate(), diary.getColor()))
+                .collect(Collectors.toList());
     }
 
     private File convertMultipartFileToFile(MultipartFile multipartFile) {

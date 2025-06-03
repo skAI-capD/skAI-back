@@ -26,6 +26,7 @@ public class MemberDiary {
   @JoinColumn(name = "member_id")
   private Member member;
 
+
   private boolean isCorrect;
 
   private LocalDateTime correctDate;
