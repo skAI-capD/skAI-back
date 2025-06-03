@@ -39,7 +39,7 @@ public class Proverb {
   private String wrong1;
   private String wrong2;
   private String wrong3;
-
+  private String level_id;
   @OneToMany(mappedBy = "proverb", cascade = CascadeType.ALL)
   private List<MemberProverb> memberProverbs = new ArrayList<>();
 
@@ -51,6 +51,9 @@ public class Proverb {
     this.id = id;
   }
 
+  public String getLevel_id() {
+    return level_id;
+  }
 
   public String getCorrect() {
     return correct;

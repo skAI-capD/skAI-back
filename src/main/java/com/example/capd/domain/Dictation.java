@@ -24,7 +24,7 @@ public class Dictation {
   private String content;
   private String level;
   private LocalDateTime correctDate;
-
+  private String level_id;
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;

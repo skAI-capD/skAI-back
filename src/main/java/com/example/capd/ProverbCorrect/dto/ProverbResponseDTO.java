@@ -19,4 +19,5 @@ public class ProverbResponseDTO {
     private String wrong3;
     private String type;
     private Status status;
+    private String level_id;
 }

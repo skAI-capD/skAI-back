@@ -21,6 +21,7 @@ public class ProverbConverter {
                 .wrong3(proverb.getWrong3())
                 .type(proverb.getType())
                 .status(proverb.getStatus())
+                .level_id(proverb.getLevel_id())
                 .build();
     }
 

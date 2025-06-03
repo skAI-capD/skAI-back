@@ -26,12 +26,12 @@ public class Word {
   private String level;
   private String hint;
   private String wordClass;
+  private String level_id;
   private LocalDateTime correctDate;
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;
-
 
   @OneToMany(mappedBy = "word", cascade = CascadeType.ALL)
   private List<Memberword> memberwords = new ArrayList<>();
@@ -88,6 +88,10 @@ public class Word {
 
   public String getShortContent() {
     return shortContent;
+  }
+
+  public String getLevel_id() {
+    return level_id;
   }
 
   public void setShortContent(String shortContent) {

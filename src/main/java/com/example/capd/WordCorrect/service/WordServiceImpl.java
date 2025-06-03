@@ -36,7 +36,6 @@ public class WordServiceImpl implements WordService {
         Word word = wordRepository.findById(request.getWordId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 단어를 찾을 수 없습니다."));
 
-
         Memberword memberword = Memberword.builder()
                 .member(member)
                 .word(word)
@@ -56,6 +55,7 @@ public class WordServiceImpl implements WordService {
                 .imageUrl(word.getImageUrl())
                 .shortContent(word.getShortContent())
                 .level(word.getLevel())
+                .level_id(word.getLevel_id())
                 .hint(word.getHint())
                 .wordClass(word.getWordClass())
                 .status(word.getStatus() != null ? word.getStatus().toString() : null)

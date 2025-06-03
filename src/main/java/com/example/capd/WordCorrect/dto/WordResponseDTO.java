@@ -20,5 +20,6 @@ public class WordResponseDTO {
     private String hint;
     private String wordClass;
     private String status;
+    private String level_id;
     private LocalDateTime correctDate;
 }
