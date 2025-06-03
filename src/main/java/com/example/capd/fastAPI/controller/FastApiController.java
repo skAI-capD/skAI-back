@@ -2,6 +2,7 @@ package com.example.capd.fastAPI.controller;
 
 import com.example.capd.domain.Member;
 import com.example.capd.fastAPI.domain.DiaryResponseDto;
+import com.example.capd.fastAPI.dto.DiaryDateColorDTO;
 import com.example.capd.fastAPI.service.FastApiService;
 import com.example.capd.joinMember.repository.JoinRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/diary")
@@ -18,6 +21,11 @@ public class FastApiController {
 
     private final FastApiService fastApiService;
     private final JoinRepository joinRepository;
+
+    @GetMapping("/calendar")
+    public List<DiaryDateColorDTO> getDiaryDatesWithColor(@AuthenticationPrincipal Member member) {
+        return fastApiService.getDiaryDateColors(member);
+    }
 
     @PostMapping(value = "/generate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DiaryResponseDto generateDiary(

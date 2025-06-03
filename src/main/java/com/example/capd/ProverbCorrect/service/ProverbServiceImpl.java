@@ -1,6 +1,7 @@
 package com.example.capd.ProverbCorrect.service;
 
 import com.example.capd.ProverbCorrect.converter.ProverbConverter;
+
 import com.example.capd.ProverbCorrect.dto.ProverbResponseDTO;
 import com.example.capd.ProverbCorrect.repository.MemberProverbRepository;
 import com.example.capd.ProverbCorrect.repository.ProverbRepository;

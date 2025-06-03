@@ -25,6 +25,7 @@ public class ProverbCorrectController {
     private final ProverbService proverbService;
     private final JoinRepository joinRepository;
 
+
     @GetMapping("/type/{type}")
     public ResponseEntity<List<ProverbResponseDTO>> getProverbsByType(@PathVariable String type ,
                                                                       @AuthenticationPrincipal UserDetails userDetails) {
