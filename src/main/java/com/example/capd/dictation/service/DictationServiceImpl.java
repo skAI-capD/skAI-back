@@ -1,5 +1,6 @@
 package com.example.capd.dictation.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import com.example.capd.dictation.dto.DictationCompareResponseDto;
 import com.example.capd.dictation.dto.DictationRequestDto;
 import com.example.capd.dictation.dto.DictationResponseDto;
@@ -7,6 +8,7 @@ import com.example.capd.dictation.dto.DictationSimpleDto;
 import com.example.capd.dictation.repository.DictationRepository;
 import com.example.capd.dictation.repository.MemberDictationRepository;
 import com.example.capd.domain.Dictation;
+import com.example.capd.domain.Member;
 import com.example.capd.domain.MemberDictation;
 import com.example.capd.domain.enums.Status;
 import com.example.capd.profile.service.ProfileService;
@@ -36,7 +38,7 @@ public class DictationServiceImpl implements DictationService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<DictationSimpleDto> getUnsolvedDictationsByLevel(String level, Long memberId) {
-        List<Dictation> unsolved = dictationRepository.findUnsolvedByLevelAndMemberId(level, memberId);
+        List<Dictation> unsolved = dictationRepository.findNotCorrectedByLevelAndMemberId(level, memberId);
         return unsolved.stream()
                 .map(d -> new DictationSimpleDto(d.getId(), d.getLevel_id(), d.getSoundsUrl()))
                 .collect(Collectors.toList());
@@ -44,7 +46,7 @@ public class DictationServiceImpl implements DictationService {
 
 
     @Override
-    public String extractAndSaveOcrContent(MultipartFile image, Long dictationId) throws IOException {
+    public String extractAndSaveOcrContent(MultipartFile image, Long dictationId, Member member) throws IOException {
         // 1. 받아쓰기 문제 찾기
         Dictation dictation = dictationRepository.findById(dictationId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 받아쓰기 문제를 찾을 수 없습니다."));
@@ -56,8 +58,9 @@ public class DictationServiceImpl implements DictationService {
         dictation.setContent(ocrText);
         dictationRepository.save(dictation);
 
-        MemberDictation memberDictation = memberDictationRepository.findByDictation(dictation)
-                .orElseThrow(() -> new IllegalArgumentException("해당 받아쓰기 결과를 찾을 수 없습니다."));
+        MemberDictation memberDictation = memberDictationRepository
+                .findByMemberAndDictation(member, dictation)
+                .orElseThrow(() -> new NotFoundException("해당 받아쓰기 결과를 찾을 수 없습니다."));
 
         memberDictation.setCorrectDate(LocalDateTime.now());
         memberDictation.setStatus(Status.CORRECT);

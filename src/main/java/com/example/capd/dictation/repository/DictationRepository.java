@@ -11,11 +11,13 @@ public interface DictationRepository extends JpaRepository<Dictation, Long> {
 
     @Query("""
     SELECT d FROM Dictation d
-    WHERE d.level = :level AND d.id NOT IN (
+    WHERE d.level = :level
+    AND d.id NOT IN (
         SELECT md.dictation.id FROM MemberDictation md
-        WHERE md.member.id = :memberId AND md.isCorrect = true
+        WHERE md.member.id = :memberId
+        AND md.status = com.example.capd.domain.enums.Status.CORRECT
     )
 """)
-    List<Dictation> findUnsolvedByLevelAndMemberId(@Param("level") String level, @Param("memberId") Long memberId);
+    List<Dictation> findNotCorrectedByLevelAndMemberId(@Param("level") String level, @Param("memberId") Long memberId);
 
 }
