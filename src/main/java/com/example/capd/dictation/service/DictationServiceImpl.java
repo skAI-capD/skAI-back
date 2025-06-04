@@ -5,7 +5,9 @@ import com.example.capd.dictation.dto.DictationRequestDto;
 import com.example.capd.dictation.dto.DictationResponseDto;
 import com.example.capd.dictation.dto.DictationSimpleDto;
 import com.example.capd.dictation.repository.DictationRepository;
+import com.example.capd.dictation.repository.MemberDictationRepository;
 import com.example.capd.domain.Dictation;
+import com.example.capd.domain.MemberDictation;
 import com.example.capd.domain.enums.Status;
 import com.example.capd.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +32,7 @@ import java.util.stream.Collectors;
 public class DictationServiceImpl implements DictationService {
 
     private final DictationRepository dictationRepository;
+    private final MemberDictationRepository memberDictationRepository;
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<DictationSimpleDto> getUnsolvedDictationsByLevel(String level, Long memberId) {
@@ -52,6 +56,12 @@ public class DictationServiceImpl implements DictationService {
         dictation.setContent(ocrText);
         dictationRepository.save(dictation);
 
+        MemberDictation memberDictation = memberDictationRepository.findByDictation(dictation)
+                .orElseThrow(() -> new IllegalArgumentException("해당 받아쓰기 결과를 찾을 수 없습니다."));
+
+        memberDictation.setCorrectDate(LocalDateTime.now());
+        memberDictation.setStatus(Status.CORRECT);
+        memberDictationRepository.save(memberDictation);
         // 4. 저장된 content만 반환
         return ocrText;
     }
@@ -59,7 +69,7 @@ public class DictationServiceImpl implements DictationService {
 
 
     public String sendImageToOcrApi(MultipartFile image) throws IOException {
-        String fastApiUrl = "http://ec2-3-37-53-105.ap-northeast-2.compute.amazonaws.com:8081/dictation-ocr"; // FastAPI OCR 서버 주소
+        String fastApiUrl = "http://ec2-3-37-53-105.ap-northeast-2.compute.amazonaws.com:8081/dictation-ocr" ; // FastAPI OCR 서버 주소
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
