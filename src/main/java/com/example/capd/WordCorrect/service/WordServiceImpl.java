@@ -26,8 +26,9 @@ public class WordServiceImpl implements WordService {
     private final MemberwordRepository memberwordRepository;
 
     @Override
-    public List<WordResponseDTO> getWordsByLevel(String level) {
-        List<Word> words = wordRepository.findByLevel(level);
+    public List<WordResponseDTO> getWordsByLevel(String level, Member member) {
+        Long memberId = member.getMemberId();
+        List<Word> words = wordRepository.findUnsolvedByLevelAndMemberId(level,memberId);
         return words.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 

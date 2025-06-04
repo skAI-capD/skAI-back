@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface WordService {
-    List<WordResponseDTO> getWordsByLevel(String level);
-    void submitAnswer(WordAnswerRequestDTO request, Member member);
+    public List<WordResponseDTO> getWordsByLevel(String level, Member member);
+        void submitAnswer(WordAnswerRequestDTO request, Member member);
 }
 

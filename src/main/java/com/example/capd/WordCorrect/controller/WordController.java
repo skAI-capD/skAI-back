@@ -26,8 +26,13 @@ public class WordController {
     private final WordService wordService;
     private final JoinRepository joinRepository;
     @GetMapping("/level")
-    public ResponseEntity<List<WordResponseDTO>> getWordsByLevel(@RequestParam String level) {
-        List<WordResponseDTO> words = wordService.getWordsByLevel(level);
+    public ResponseEntity<List<WordResponseDTO>> getWordsByLevel(@RequestParam String level ,@AuthenticationPrincipal UserDetails userDetails) {
+
+        String email = userDetails.getUsername();
+
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        List<WordResponseDTO> words = wordService.getWordsByLevel(level , member);
         return ResponseEntity.ok(words);
     }
 
