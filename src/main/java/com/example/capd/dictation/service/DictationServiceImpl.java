@@ -59,7 +59,7 @@ public class DictationServiceImpl implements DictationService {
 
 
     public String sendImageToOcrApi(MultipartFile image) throws IOException {
-        String fastApiUrl = "http://localhost:8081/dictation-ocr"; // FastAPI OCR 서버 주소
+        String fastApiUrl = "http://3.37.53.105:8081/dictation-ocr"; // FastAPI OCR 서버 주소
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);

@@ -64,7 +64,7 @@ public class FastApiService {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         ResponseEntity<DiaryResponseDto> response = restTemplate.exchange(
-                "http://localhost:8081/generate-diary-image",
+                "http:/3.37.53.105:8081/generate-diary-image",
                 HttpMethod.POST,
                 requestEntity,
                 DiaryResponseDto.class
