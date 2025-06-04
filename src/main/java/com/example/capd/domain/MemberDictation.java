@@ -1,6 +1,7 @@
 package com.example.capd.domain;
 
 import com.example.capd.domain.Member;
+import com.example.capd.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,8 +26,17 @@ public class MemberDictation {
   @JoinColumn(name = "dictation_id")
   private Dictation dictation;
 
+  @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
+  private Status status;
   private boolean isCorrect;
 
   private LocalDateTime correctDate;
 
+  public void setCorrectDate(LocalDateTime correctDate) {
+    this.correctDate = correctDate;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 }

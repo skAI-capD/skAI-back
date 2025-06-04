@@ -49,6 +49,13 @@ public class Dictation {
     this.correctAnswer = correctAnswer;
   }
 
+  public void setCorrectDate(LocalDateTime correctDate) {
+    this.correctDate = correctDate;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 
   public String getSoundsUrl() {
     return soundsUrl;
