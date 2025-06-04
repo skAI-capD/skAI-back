@@ -47,10 +47,16 @@ public class DictationController {
 
     @PostMapping(value = "/ocr/result", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> handleOcrOnly(
+            @AuthenticationPrincipal UserDetails userDetails,
             @RequestParam("image") MultipartFile image,
             @RequestParam("dictationId") Long dictationId
     ) throws IOException {
-        String resultContent = dictationService.extractAndSaveOcrContent(image, dictationId);
+        String email = userDetails.getUsername();
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        String resultContent = dictationService.extractAndSaveOcrContent(image, dictationId, member);
         return ResponseEntity.ok(resultContent);
     }
+
 }

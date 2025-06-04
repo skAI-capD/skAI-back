@@ -13,10 +13,9 @@ import java.util.Optional;
 public interface MemberDictationRepository extends JpaRepository<MemberDictation, Long> {
 
     // 받아쓰기 문제(dictation) 기준 조회
-    Optional<MemberDictation> findByDictation(Dictation dictation);
+    Optional<MemberDictation> findByMemberAndDictation(Member member, Dictation dictation);
 
     // 특정 회원 + 받아쓰기 문제 기준 조회 (더 안전하게 사용 가능)
-    Optional<MemberDictation> findByMemberAndDictation(Member member, Dictation dictation);
 
     @Query("""
     SELECT d FROM Dictation d
