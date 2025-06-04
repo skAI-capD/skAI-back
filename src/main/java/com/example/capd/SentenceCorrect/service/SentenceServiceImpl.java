@@ -29,12 +29,12 @@ public class SentenceServiceImpl implements SentenceService {
 
     public List<SentenceResponseDto> getShuffledSentencesBySentenceId(int sentenceId) {
         List<Sentence> sentenceList = sentenceRepository.findBySentenceId(sentenceId);
-
         Collections.shuffle(sentenceList);  // 랜덤 순서
         return sentenceList.stream()
                 .map(SentenceConverter::toDto)
                 .collect(Collectors.toList());
     }
+
 
     @Transactional
     public void saveMemberSentence(Member member, Long sentenceGroupId, boolean isCorrect) {
