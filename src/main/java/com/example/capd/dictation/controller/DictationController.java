@@ -24,11 +24,20 @@ public class DictationController {
     private final JoinRepository joinRepository;
 
 
+
     @PostMapping("/compare")
-    public ResponseEntity<DictationCompareResponseDto> compareDictation(@RequestBody DictationCompareRequestDto request) {
-        DictationCompareResponseDto result = dictationService.compareDictationContentWithAnswer(request.getDictationId());
+    public ResponseEntity<DictationCompareResponseDto> compareDictation(
+            @RequestBody DictationCompareRequestDto request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        String email = userDetails.getUsername();
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        DictationCompareResponseDto result = dictationService.compareDictationContentWithAnswer(request.getDictationId(), member);
         return ResponseEntity.ok(result);
     }
+
 
 
     @GetMapping("/unsolved")

@@ -16,6 +16,6 @@ public interface DictationService {
     public String sendImageToOcrApi(MultipartFile image) throws IOException;
 
     public List<DictationSimpleDto> getUnsolvedDictationsByLevel(String level, Long memberId);
-    public DictationCompareResponseDto compareDictationContentWithAnswer(Long dictationId);
+    public DictationCompareResponseDto compareDictationContentWithAnswer(Long dictationId, Member member);
 
     }
