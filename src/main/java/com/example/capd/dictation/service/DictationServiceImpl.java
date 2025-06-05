@@ -105,7 +105,9 @@ public class DictationServiceImpl implements DictationService {
                 .dictation(dictation)
                 .status(status)
                 .correctDate(LocalDateTime.now())
+                .isCorrect(status == Status.CORRECT)  // ✅ 여기를 추가하세요
                 .build();
+
 
         memberDictationRepository.save(memberDictation);
 
