@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -58,14 +59,7 @@ public class DictationServiceImpl implements DictationService {
         dictation.setContent(ocrText);
         dictationRepository.save(dictation);
 
-        MemberDictation memberDictation = memberDictationRepository
-                .findByMemberAndDictation(member, dictation)
-                .orElseThrow(() -> new NotFoundException("해당 받아쓰기 결과를 찾을 수 없습니다."));
-
-        memberDictation.setCorrectDate(LocalDateTime.now());
-        memberDictation.setStatus(Status.CORRECT);
-        memberDictationRepository.save(memberDictation);
-        // 4. 저장된 content만 반환
+        // 4. OCR 결과 반환
         return ocrText;
     }
 
@@ -94,16 +88,31 @@ public class DictationServiceImpl implements DictationService {
         throw new RuntimeException("OCR 서버 응답 실패: " + response.getStatusCode());
     }
 
-    public DictationCompareResponseDto compareDictationContentWithAnswer(Long dictationId) {
+    @Transactional
+    public DictationCompareResponseDto compareDictationContentWithAnswer(Long dictationId, Member member) {
+        // 1. 받아쓰기 문제 조회
         Dictation dictation = dictationRepository.findById(dictationId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 받아쓰기 문제를 찾을 수 없습니다."));
 
+        // 2. 정답 비교
         Status status = dictation.getCorrectAnswer().trim().equals(dictation.getContent().trim())
                 ? Status.CORRECT
                 : Status.INCORRECT;
 
+        // 3. MemberDictation 생성 및 저장 (Builder 사용)
+        MemberDictation memberDictation = MemberDictation.builder()
+                .member(member)
+                .dictation(dictation)
+                .status(status)
+                .correctDate(LocalDateTime.now())
+                .build();
+
+        memberDictationRepository.save(memberDictation);
+
+        // 4. 비교 결과 반환
         return new DictationCompareResponseDto(status);
     }
+
 
 
 
