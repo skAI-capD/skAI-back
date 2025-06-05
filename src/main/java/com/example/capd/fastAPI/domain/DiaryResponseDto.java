@@ -3,6 +3,8 @@ package com.example.capd.fastAPI.domain;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class DiaryResponseDto {
     private String correctedText;
@@ -11,4 +13,6 @@ public class DiaryResponseDto {
     private String prompt;
     private String imageUrl;
     private String fixedText;
+    private String capturedImageUrl;
+    private LocalDate date;
 }
