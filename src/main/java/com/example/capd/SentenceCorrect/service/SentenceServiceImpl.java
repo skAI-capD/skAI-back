@@ -27,13 +27,29 @@ public class SentenceServiceImpl implements SentenceService {
     private final SentenceRepository sentenceRepository;
     private final MemberSentenceRepository memberSentenceRepository;
 
-    public List<SentenceResponseDto> getShuffledSentencesBySentenceId(int sentenceId) {
-        List<Sentence> sentenceList = sentenceRepository.findBySentenceId(sentenceId);
-        Collections.shuffle(sentenceList);  // 랜덤 순서
-        return sentenceList.stream()
+    public List<SentenceResponseDto> getNextShuffledSentenceByMemberAndLevel(Long memberId, String level) {
+        // 1. 맞춘 문제 중 가장 큰 sentenceId 찾기
+        Integer maxCorrectSentenceId = memberSentenceRepository.findMaxCorrectSentenceIdByMemberIdAndLevel(memberId, level);
+
+        // 2. 다음 문제 ID
+        int nextSentenceId = (maxCorrectSentenceId != null) ? maxCorrectSentenceId + 1 : 1;
+
+        // 3. 다음 문제 문장 조각들 가져오기
+        List<Sentence> nextSentences = sentenceRepository.findBySentenceIdAndLevel(nextSentenceId, level);
+        if (nextSentences.isEmpty()) {
+            throw new IllegalArgumentException("해당 레벨의 다음 문제가 존재하지 않습니다.");
+        }
+
+        // 4. 순서 섞기
+        Collections.shuffle(nextSentences);
+
+        // 5. 변환 후 반환
+        return nextSentences.stream()
                 .map(SentenceConverter::toDto)
                 .collect(Collectors.toList());
     }
+
+
 
 
     @Transactional

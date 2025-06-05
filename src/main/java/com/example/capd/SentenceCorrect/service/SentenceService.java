@@ -8,5 +8,5 @@ import java.util.List;
 public interface SentenceService {
 
     public void saveMemberSentence(Member member, Long sentenceId , boolean isCorrect);
-    public List<SentenceResponseDto> getShuffledSentencesBySentenceId(int sentenceId);
+    public List<SentenceResponseDto> getNextShuffledSentenceByMemberAndLevel(Long memberId, String level);
 }

@@ -12,14 +12,7 @@ public interface SentenceRepository extends JpaRepository<Sentence, Long> {
     List<Sentence> findBySentenceId(int sentenceId);
 
 
-    @Query("""
-    SELECT s FROM Sentence s
-    WHERE s.level = :level AND 
-          s.id NOT IN (
-              SELECT ms.sentence.id FROM MemberSentence ms
-              WHERE ms.member.id = :memberId AND ms.isCorrect = true
-          )
-""")
-    List<Sentence> findUnsolvedByLevelAndMemberId(@Param("level") String level, @Param("memberId") Long memberId);
+    List<Sentence> findBySentenceIdAndLevel(int sentenceId, String level);
+
 
 }

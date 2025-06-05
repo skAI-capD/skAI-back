@@ -21,11 +21,19 @@ public class SentenceCorrectController {
     private final SentenceService sentenceService;
     private final JoinRepository joinRepository;
 
-    @GetMapping("/shuffle/{sentenceId}")
-    public ResponseEntity<List<SentenceResponseDto>> getShuffledSentences(@PathVariable int sentenceId) {
-        List<SentenceResponseDto> responses = sentenceService.getShuffledSentencesBySentenceId(sentenceId);
-        return ResponseEntity.ok(responses);
+    @GetMapping("/shuffle/next")
+    public ResponseEntity<List<SentenceResponseDto>> getNextShuffledSentence(
+            @AuthenticationPrincipal UserDetails userDetails ,
+            @RequestParam String level) {
+        String email = userDetails.getUsername();
+
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        Long memberId = member.getId();  // ✅ 현재 로그인한 사용자 ID
+        List<SentenceResponseDto> result = sentenceService.getNextShuffledSentenceByMemberAndLevel(memberId , level);
+        return ResponseEntity.ok(result);
     }
+
 
     @PostMapping("/{sentenceId}")
     public ResponseEntity<String> markSentenceCorrect(@PathVariable Long sentenceId,

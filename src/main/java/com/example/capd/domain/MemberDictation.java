@@ -26,6 +26,7 @@ public class MemberDictation {
   @JoinColumn(name = "dictation_id")
   private Dictation dictation;
 
+  @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
   private Status status;
   private boolean isCorrect;
