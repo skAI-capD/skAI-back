@@ -105,10 +105,9 @@ public class FastApiService {
                 .build();
         memberDiaryRepository.save(memberDiary);
 
-        // 5. 최종 응답
-        responseDto.setImageUrl(s3ReuploadedImageUrl);
-
-        // 5. 최종 응답
+        responseDto.setFixedText(responseDto.getCorrectedText());
+        responseDto.setCapturedImageUrl(s3ImageUrl);
+        responseDto.setDate(LocalDate.now());
         responseDto.setImageUrl(s3ReuploadedImageUrl);
         return responseDto;
     }
