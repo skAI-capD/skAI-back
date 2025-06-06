@@ -14,5 +14,6 @@ public class DiaryResponseDto {
     private String imageUrl;
     private String fixedText;
     private String capturedImageUrl;
+    private String color;
     private LocalDate date;
 }
