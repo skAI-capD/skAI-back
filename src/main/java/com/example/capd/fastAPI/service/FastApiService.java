@@ -109,7 +109,7 @@ public class FastApiService {
         responseDto.setCapturedImageUrl(s3ImageUrl);
         responseDto.setDate(LocalDate.now());
         responseDto.setImageUrl(s3ReuploadedImageUrl);
-        responseDto.setColor(responseDto.getColor());
+        responseDto.setColor(color);
         return responseDto;
     }
 
