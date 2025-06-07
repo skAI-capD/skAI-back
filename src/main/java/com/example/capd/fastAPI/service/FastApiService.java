@@ -147,28 +147,26 @@ public class FastApiService {
         }
     }
 
-    public DiaryResponseDto saveSelectedImage(Member member, Long diaryId, String selectedImageUrl , String model) {
+    public DiaryResponseDto saveSelectedImage(Member member, Long diaryId, String selectedImageUrl, String model) {
 
-        Diary diary = Diary.builder()
-                        .model(model)
-                        .build();
-        diaryRepository.save(diary);
-
-        // 1. Diary 조회
-         diary = diaryRepository.findById(diaryId)
+        // 1. 기존 Diary 조회
+        Diary diary = diaryRepository.findById(diaryId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 일기를 찾을 수 없습니다."));
 
-        // 2. 이미지 다운로드 → S3에 업로드
+        // 2. 이미지 다운로드 → S3 업로드
         String uploadedUrl = reuploadImageToS3(selectedImageUrl);
 
-        // 3. Diary 객체에 이미지 URL 저장
-        diary.setImageUrl(uploadedUrl);
-        diaryRepository.save(diary);
+        // 3. Diary 정보 업데이트
+        diary.setImageUrl(uploadedUrl);   // 이미지 URL 저장
+        diary.setModel(model);            // 모델 정보 저장
+        diaryRepository.save(diary);      // 수정된 Diary 저장
 
+        // 4. 응답 DTO 생성
         DiaryResponseDto responseDto = new DiaryResponseDto();
-        responseDto.setId(diary.getId());
+        responseDto.setId(diary.getId());  // ← 필드명이 setId()가 아니라 setDiaryId()면 이 이름으로
         return responseDto;
     }
+
 
 
     private String reuploadImageToS3(String imageUrl) {
