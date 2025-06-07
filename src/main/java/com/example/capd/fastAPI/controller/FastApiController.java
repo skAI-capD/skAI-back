@@ -9,6 +9,7 @@ import com.example.capd.joinMember.repository.JoinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,28 @@ public class FastApiController {
 
         return fastApiService.getDiaryDateColors(member);
     }
+
+
+
+
+    @PostMapping("/save-selected-image")
+    public ResponseEntity<DiaryResponseDto> saveSelectedImageToDiary(
+            @RequestParam Long diaryId,
+            @RequestParam String selectedImageUrl,
+            @RequestParam String model,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        if (userDetails == null) {
+            throw new IllegalArgumentException("인증 정보 없음");
+        }
+
+        String email = userDetails.getUsername();
+        Member member = joinRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        DiaryResponseDto responseDto = fastApiService.saveSelectedImage(member, diaryId, selectedImageUrl , model);
+        return ResponseEntity.ok(responseDto);
+    }
+
 
     @PostMapping(value = "/generate", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public DiaryResponseDto generateDiary(
