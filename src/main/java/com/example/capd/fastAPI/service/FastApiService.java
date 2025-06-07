@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Service
 @RequiredArgsConstructor
 public class FastApiService {
@@ -78,9 +79,9 @@ public class FastApiService {
             throw new IllegalStateException("FastAPI 응답이 없습니다.");
         }
 
-        // 3. FastAPI에서 받은 그림 URL → 다시 S3 업로드
-        String generatedImageUrl = responseDto.getImageUrl();
-        String s3ReuploadedImageUrl = reuploadImageToS3(generatedImageUrl);
+//        // 3. FastAPI에서 받은 그림 URL → 다시 S3 업로드
+//        String generatedImageUrl = responseDto.getImageUrl();
+//        String s3ReuploadedImageUrl = reuploadImageToS3(generatedImageUrl);
 
         // 4. DB 저장
         Diary diary = Diary.builder()
@@ -88,7 +89,7 @@ public class FastApiService {
                 .content(diaryText)
                 .fixedContent(responseDto.getCorrectedText())
                 .capturedImageUrl(s3ImageUrl)
-                .imageUrl(s3ReuploadedImageUrl)
+//                .imageUrl(s3ReuploadedImageUrl)
                 .date(LocalDate.now())
                 .status(Status.CORRECT)
                 .color(color)
@@ -108,8 +109,9 @@ public class FastApiService {
         responseDto.setFixedText(responseDto.getCorrectedText());
         responseDto.setCapturedImageUrl(s3ImageUrl);
         responseDto.setDate(LocalDate.now());
-        responseDto.setImageUrl(s3ReuploadedImageUrl);
+//        responseDto.setImageUrl(s3ReuploadedImageUrl);
         responseDto.setColor(color);
+        responseDto.setId(diary.getId());
         return responseDto;
     }
 
@@ -144,6 +146,30 @@ public class FastApiService {
             throw new RuntimeException("MultipartFile → File 변환 실패: " + e.getMessage(), e);
         }
     }
+
+    public DiaryResponseDto saveSelectedImage(Member member, Long diaryId, String selectedImageUrl , String model) {
+
+        Diary diary = Diary.builder()
+                        .model(model)
+                        .build();
+        diaryRepository.save(diary);
+
+        // 1. Diary 조회
+         diary = diaryRepository.findById(diaryId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 일기를 찾을 수 없습니다."));
+
+        // 2. 이미지 다운로드 → S3에 업로드
+        String uploadedUrl = reuploadImageToS3(selectedImageUrl);
+
+        // 3. Diary 객체에 이미지 URL 저장
+        diary.setImageUrl(uploadedUrl);
+        diaryRepository.save(diary);
+
+        DiaryResponseDto responseDto = new DiaryResponseDto();
+        responseDto.setId(diary.getId());
+        return responseDto;
+    }
+
 
     private String reuploadImageToS3(String imageUrl) {
         try (InputStream inputStream = new URL(imageUrl).openStream()) {

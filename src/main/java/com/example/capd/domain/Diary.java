@@ -29,6 +29,8 @@ public class Diary {
   private String fixedContent;
   private String color;
   private String style;
+  private String model;
+
 
   @Enumerated(EnumType.STRING)
   @Column(columnDefinition = "VARCHAR(15) DEFAULT 'INCORRECT'")
