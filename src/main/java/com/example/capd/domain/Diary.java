@@ -69,6 +69,10 @@ public class Diary {
     this.imageUrl = imageUrl;
   }
 
+  public void setModel(String model) {
+    this.model = model;
+  }
+
 
   public LocalDate getDate() {
     return date;
