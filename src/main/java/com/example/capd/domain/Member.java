@@ -35,7 +35,8 @@ public class Member {
   private LocalDateTime createdAt;
   private String password;
 
-  private String gender;
+  @Builder.Default
+  private String gender = "girl";
   @Column(nullable = true)
   private long correct;
   @Enumerated(EnumType.STRING)
