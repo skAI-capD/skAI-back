@@ -28,14 +28,14 @@ public class SentenceServiceImpl implements SentenceService {
     private final MemberSentenceRepository memberSentenceRepository;
 
     public List<SentenceResponseDto> getNextShuffledSentenceByMemberAndLevel(Long memberId, String level) {
-        // 1. 맞춘 문제 중 가장 큰 sentenceId 찾기
-        Integer maxCorrectSentenceId = memberSentenceRepository.findMaxCorrectSentenceIdByMemberIdAndLevel(memberId, level);
+        // 1. 맞춘 문제 중 가장 큰 level_id 찾기
+        Integer maxCorrectLevelId = sentenceRepository.findMaxCorrectLevelIdByMemberIdAndLevel(memberId, level);
 
-        // 2. 다음 문제 ID (아무것도 맞춘 적 없으면 1번부터 시작)
-        int nextSentenceId = (maxCorrectSentenceId != null) ? maxCorrectSentenceId + 1 : 1;
+        // 2. 다음 level_id (없으면 1부터 시작)
+        int nextLevelId = (maxCorrectLevelId != null) ? maxCorrectLevelId + 1 : 1;
 
         // 3. 다음 문제 문장 조각들 가져오기
-        List<Sentence> nextSentences = sentenceRepository.findBySentenceIdAndLevel(nextSentenceId, level);
+        List<Sentence> nextSentences = sentenceRepository.findByLevelAndLevelId(level, nextLevelId);
         if (nextSentences.isEmpty()) {
             throw new IllegalArgumentException("해당 레벨의 다음 문제가 존재하지 않습니다.");
         }
@@ -48,6 +48,8 @@ public class SentenceServiceImpl implements SentenceService {
                 .map(SentenceConverter::toDto)
                 .collect(Collectors.toList());
     }
+
+
 
 
 
