@@ -31,7 +31,7 @@ public class SentenceServiceImpl implements SentenceService {
         // 1. 맞춘 문제 중 가장 큰 sentenceId 찾기
         Integer maxCorrectSentenceId = memberSentenceRepository.findMaxCorrectSentenceIdByMemberIdAndLevel(memberId, level);
 
-        // 2. 다음 문제 ID
+        // 2. 다음 문제 ID (아무것도 맞춘 적 없으면 1번부터 시작)
         int nextSentenceId = (maxCorrectSentenceId != null) ? maxCorrectSentenceId + 1 : 1;
 
         // 3. 다음 문제 문장 조각들 가져오기
@@ -48,6 +48,7 @@ public class SentenceServiceImpl implements SentenceService {
                 .map(SentenceConverter::toDto)
                 .collect(Collectors.toList());
     }
+
 
 
 
