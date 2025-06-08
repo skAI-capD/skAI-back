@@ -12,6 +12,7 @@ public class SentenceConverter {
                 .order(sentence.getOrders())
                 .level_id(sentence.getLevel_id())
                 .level(sentence.getLevel())
+                .sentenceId(sentence.getSentenceId())
                 .build();
     }
 

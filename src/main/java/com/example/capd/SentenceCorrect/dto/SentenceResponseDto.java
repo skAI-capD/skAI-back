@@ -15,5 +15,6 @@ public class SentenceResponseDto {
     private String content;
     private String level_id;
     private String level;
+    private int sentenceId;
     private int order;
 }
