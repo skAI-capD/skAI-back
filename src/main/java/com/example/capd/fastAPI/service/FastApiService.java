@@ -43,7 +43,8 @@ public class FastApiService {
 
     public DiaryResponseDto handleDiaryGeneration(Member member, MultipartFile diaryImage,
                                                   String diaryText, String style, String color,
-                                                  boolean useCustom, String hairstyle, String outfit) {
+                                                  boolean useCustom, String hairstyle, String outfit,
+                                                  LocalDate date) {
 
         // 1. MultipartFile → 임시 파일로 저장
         File tempFile = convertMultipartFileToFile(diaryImage);
@@ -89,12 +90,12 @@ public class FastApiService {
                 .content(diaryText)
                 .fixedContent(responseDto.getCorrectedText())
                 .capturedImageUrl(s3ImageUrl)
-//                .imageUrl(s3ReuploadedImageUrl)
-                .date(LocalDate.now())
+                .date(date)  // <-- 여기 수정됨
                 .status(Status.CORRECT)
                 .color(color)
                 .style(style)
                 .build();
+
         diaryRepository.save(diary);
 
         // 4-1. MemberDiary에도 저장
