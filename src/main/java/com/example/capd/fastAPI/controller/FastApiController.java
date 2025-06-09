@@ -76,6 +76,7 @@ public class FastApiController {
             @RequestParam("useCustom") boolean useCustom,
             @RequestParam(value = "hairstyle", required = false) String hairstyle,
             @RequestParam(value = "outfit", required = false) String outfit,
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,  // 추가됨
             @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 
         if (userDetails == null) {
@@ -86,7 +87,7 @@ public class FastApiController {
         Member member = joinRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        return fastApiService.handleDiaryGeneration(member, diaryImage, null, style, color, useCustom, hairstyle, outfit);
+        return fastApiService.handleDiaryGeneration(member, diaryImage, null, style, color, useCustom, hairstyle, outfit, date);
     }
 
 }
