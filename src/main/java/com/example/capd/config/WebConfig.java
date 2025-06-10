@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://titkoon.shop")  // 🔥 Swagger 테스트 시엔 모든 Origin 허용
+                        .allowedOrigins("https://titkoon.shop" , "https://s-kai.netlify.app")  // 🔥 Swagger 테스트 시엔 모든 Origin 허용
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(false);
