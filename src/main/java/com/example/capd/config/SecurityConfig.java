@@ -33,8 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/", "/index.html", "/favicon.ico",
-                                "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg", "/**/*.gif",
-                                "/members/signup", "/members/login", "/swagger-ui/**", "/v3/api-docs/**",
+                                "/members/signup", "/members/login",
+                                "/swagger-ui/**", "/v3/api-docs/**",
                                 "/api/proverbs/**", "/health"
                         ).permitAll()
                         .anyRequest().authenticated()
